@@ -30,8 +30,9 @@ and a Gmail App Password (not your regular account password).
 ## Deploy to Vercel
 
 Import this repository into Vercel with the project root set to the repository
-root. The root workspace builds the frontend into `client/dist` and serves the
-Express API as a Vercel Function.
+root. Vercel installs the client and server from their respective lockfiles,
+builds the frontend into `client/dist`, and exposes the Express API through
+Vercel Functions for login, sending mail, and campaign history.
 
 Configure these environment variables in Vercel for the environments you use:
 `MONGO_URI`, `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `SMTP_HOST`,
