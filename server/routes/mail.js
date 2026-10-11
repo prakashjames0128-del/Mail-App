@@ -30,7 +30,9 @@ router.post('/send', async (req, res, next) => {
     const smtpPort = Number(process.env.SMTP_PORT);
     if (missingConfig.length || !Number.isInteger(smtpPort) || smtpPort < 1 || smtpPort > 65535) {
       return res.status(503).json({
-        message: 'Email sending is not configured. Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and MAIL_FROM in Vercel.',
+        message: missingConfig.length
+          ? `Email sending is not configured. Set these Vercel environment variables: ${missingConfig.join(', ')}.`
+          : 'Email sending is not configured. SMTP_PORT must be a valid port number.',
       });
     }
 
