@@ -1,0 +1,13 @@
+{
+  "name": "bulk-mail",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace bulk-mail-client",
+    "start": "npm run dev --workspace bulk-mail-server"
+  }
+}
