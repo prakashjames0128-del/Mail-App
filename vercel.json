@@ -1,6 +1,6 @@
 {
   "framework": "vite",
-  "installCommand": "npm ci --include=dev",
-  "buildCommand": "npm run build",
+  "installCommand": "npm ci --prefix client --include=dev && npm ci --prefix server --omit=dev",
+  "buildCommand": "npm run build --prefix client",
   "outputDirectory": "client/dist"
 }
