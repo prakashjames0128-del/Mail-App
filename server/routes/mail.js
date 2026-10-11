@@ -25,6 +25,15 @@ router.post('/send', async (req, res, next) => {
     if (!list.length) return res.status(400).json({ message: 'Add at least one recipient.' });
     if (invalid.length) return res.status(400).json({ message: `Invalid addresses: ${invalid.slice(0, 5).join(', ')}` });
 
+    const missingConfig = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'MAIL_FROM']
+      .filter((key) => !process.env[key]?.trim());
+    const smtpPort = Number(process.env.SMTP_PORT);
+    if (missingConfig.length || !Number.isInteger(smtpPort) || smtpPort < 1 || smtpPort > 65535) {
+      return res.status(503).json({
+        message: 'Email sending is not configured. Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and MAIL_FROM in Vercel.',
+      });
+    }
+
     const record = await Mail.create({ subject, body, recipients: list });
     const results = [];
 
